@@ -8,12 +8,10 @@
 </template>
 
 <script>
-//Fetching Data and forrmating
-import axios from 'axios'
-
 //Componets
 import PatientInfo from '@/components/PatientInfo.vue'
 import DocumentsPatient from '@/components/DocumentsPatient.vue'
+import patientDB from '@/data/patientData.json'
 
 export default {
   name: 'DocsBrowser',
@@ -21,6 +19,7 @@ export default {
 
   data() {
     return {
+      items: patientDB.data,
       data: [],
       filteredDocs: [],
       numDocs: Number,
@@ -30,17 +29,20 @@ export default {
       matched: '',
     }
   },
+  // ===================================================================== //
 
   methods: {
-    // Using axios to retreive and then store the data into the Data merhod mentioned above
-    async getPatientData() {
-      await axios.get('http://localhost:3000/data').then((response) => {
-        this.data = response.data[0]
-        this.documents = response.data[0].documents
-        this.numDocs = this.documents.length
-        this.formatData()
-      })
+    // Getting the data from json file imported above
+    getPatientData() {
+      this.data = this.items
+      this.documents = this.items[0].documents
+      this.numDocs = this.items[0].documents.length
+      this.formatData()
     },
+
+    // ===================================================================== //
+
+    // Formatting Data e.g date, special characters and others
 
     formatData() {
       return this.documents.sort(
@@ -61,6 +63,10 @@ export default {
     tagsStripped(str) {
       return str.replace(/<\/?[^>]+(>|$)/g, '')
     },
+
+    // ===================================================================== //
+
+    // Getting the found term after filter. This will be usefull for underlying matching results in HTML
 
     findMatched(word) {
       this.documents.forEach((elt) => {
@@ -103,6 +109,9 @@ export default {
       })
     },
 
+    // ===================================================================== //
+
+    // Filtering data on input. Checking whether the user input matches title/text/date/origin/type
     filterDocs(search) {
       this.searchedWord = search
 
@@ -134,6 +143,10 @@ export default {
       this.findMatched(this.searchedWord)
     },
   },
+
+  // ===================================================================== //
+
+  // Retreiving the patient data on mount
 
   created() {
     this.getPatientData()
