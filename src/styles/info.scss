@@ -1,0 +1,74 @@
+.patient__info__container {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 186px;
+	height: 100%;
+	border-bottom: 2px solid rgba(189, 195, 199, 1);
+
+	&--initial {
+		position: absolute;
+		left: 32px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+
+		& > h1 {
+			font-size: 32px;
+			display: flex;
+			align-items: baseline;
+			& > p {
+				font-size: 18px;
+				margin-left: 0.25rem;
+				color: #686f78;
+			}
+		}
+
+		&--birth_gender {
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			& > p {
+				font-size: 13px;
+				color: #a0a7b0;
+				& > span {
+					color: #686f78;
+				}
+			}
+
+			& > svg {
+				color: #686f78;
+			}
+		}
+
+		> p {
+			font-size: 12px;
+			color: #a0a7b0;
+			& > span {
+				color: #686f78;
+			}
+		}
+	}
+
+	&__nav {
+		position: absolute;
+		bottom: 0;
+		& > ul {
+			& > li {
+				padding: 10px;
+				font-size: 16px;
+			}
+		}
+	}
+}
+
+a {
+	text-decoration: none;
+	color: #686f78;
+	font-weight: 600;
+	transition: all 300ms ease-in-out;
+	&:hover {
+		color: #233c73;
+	}
+}
