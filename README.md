@@ -2,13 +2,15 @@
 
 ## Installation
 
+* After cloning the repository, execute the commands below:
+
 ```
 npm install
+```
 
+```
 npm run serve
 ```
 
-<!-- 
-[Demo](https://easterling24.github.io/YevgeniyGupalo__P7__050222/) -->
 
 
