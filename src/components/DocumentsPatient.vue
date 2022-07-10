@@ -6,76 +6,81 @@
     </div>
 
     <table class="patient__docs__table">
-      <thead class="patient__docs__table__head">
+      <thead>
         <tr>
           <th>
             <span>
-              Date
+              <p>Date</p>
               <fa icon="fa-solid fa-angle-down" />
             </span>
           </th>
-          <th>
-            <span>
-              Type
+          <th>    <span>
+              <p>Type</p>
               <fa icon="fa-solid fa-angle-down" />
-            </span>
-          </th>
-          <th>
-            <span>
-              Origine
+            </span></th>
+          <th>    <span>
+              <p>Origine</p>
               <fa icon="fa-solid fa-angle-down" />
-            </span>
-          </th>
-          <th>
-            <span>
-              Aperçu
+            </span></th>
+          <th>    <span>
+              <p>Aperçu</p>
               <fa icon="fa-solid fa-angle-down" />
-            </span>
-          </th>
+            </span></th>
           <th></th>
         </tr>
       </thead>
-      <tbody class="patient__docs__table__body">
+      <tbody v-for="document in documents" :key="document.index">
         <tr
-          class="docs_rows"
-          v-for="document in documents"
-          :key="document.index"
+          class="patient__docs__table__initial"
+          v-bind:class="{
+            patient__docs__table__initial__toggled: document.toggled === true,
+          }"
         >
-          <td valign="top">
-            <span
-              v-html="highlightFoundItem(date_time(document.document_date))"
-            ></span>
-          </td>
-          <td valign="top">
-            <span v-html="highlightFoundItem(document.document_type)"></span>
-          </td>
-          <td valign="top">
-            <span
-              v-html="highlightFoundItem(document.document_origin_code)"
-            ></span>
-          </td>
-          <td valign="top">
-            <div class="patient__docs__table__body--text_container">
-              <h4 v-html="highlightFoundItem(document.title)"></h4>
-
-              <p
-                v-html="
-                  normalizeString(highlightFoundItem(document.displayed_text))
-                "
-              ></p>
-            </div>
-    
-          </td>
-
           <td
-            valign="top"
-            class="patient__docs__table__body--text_container--expand"
-       
-          >
-            <span v-on:click="toggleText(document)">
+            v-html="highlightFoundItem(date_time(document.document_date))"
+          ></td>
+          <td>{{ document.document_type }}</td>
+          <td>{{ document.document_origin_code }}</td>
+          <td style="width: 800px;">
+            <div
+              class="patient__docs__table__initial__textbox"
+              v-bind:class="{
+                patient__docs__table__initial__textbox__empty:
+                  document.toggled === true,
+              }"
+            >
+              <h3>{{ document.title }}</h3>
+              <p v-html="normalizeString(document.displayed_text)"></p>
+            </div>
+          </td>
+          <td>
+            <button @click="expandText(document)">
               <fa icon="fa-solid fa-angle-right" />
-            </span>
-         
+            </button>
+          </td>
+        </tr>
+        <tr
+          class="patient__docs__table__hidden"
+          v-bind:class="{
+            patient__docs__table__expanded: document.toggled === true,
+          }"
+        >
+          <td colspan="4">
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="patient__docs__table__hidden--container">
+                      <div>
+                        <p v-html="document.title"></p>
+                      </div>
+
+                      <p v-html="normalizeString(document.displayed_text)"></p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </td>
         </tr>
       </tbody>
@@ -92,11 +97,12 @@ export default {
 
   data() {
     return {
-      showMoreText: false,
+      toggled: Boolean,
     }
   },
 
   methods: {
+    // Removing special characters such as tags, br's
     normalizeString(str) {
       return str.replace(/(\r\n|\n|\r|\\n|\t|\\t|-|=|_)/gm, '')
     },
@@ -116,21 +122,15 @@ export default {
       return moment(String(value)).format('YYYY')
     },
 
-    toggleText(item) {
+    // Finding the element to be toggled for text expansion
 
-      item.toggled = true
-      if(item.toggled){
-          this.showMoreText = true
+    expandText(document) {
+      console.log(document)
+      if (document.toggled === false) {
+        document.toggled = true
       } else {
-        this.showMoreText = false
+        document.toggled = false
       }
-      // if(item.toggled === true){
-      //   this.showMoreText = true
-
-      // } else {
-      //   this.showMoreText = false
-      // }
-    
     },
   },
 }
