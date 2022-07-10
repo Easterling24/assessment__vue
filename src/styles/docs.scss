@@ -71,13 +71,9 @@
 				margin-bottom: 1rem;
 			}
 
-			& > p {
-				height: 110px;
-				overflow: hidden;
-			}
-
 			&--expand {
 				position: relative;
+				width: 60px;
 				& > span {
 					position: absolute;
 					height: 30px;
@@ -101,6 +97,15 @@
 	color: #4b535e;
 }
 
-.shownText{
+.shownText {
 	display: block;
+}
+
+.hidden {
+	height: 110px;
+	overflow: hidden;
+}
+.expanded {
+	height: 100%;
+	transition: 300ms ease-in-out;
 }
