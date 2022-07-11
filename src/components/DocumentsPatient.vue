@@ -14,18 +14,24 @@
               <fa icon="fa-solid fa-angle-down" />
             </span>
           </th>
-          <th>    <span>
+          <th>
+            <span>
               <p>Type</p>
               <fa icon="fa-solid fa-angle-down" />
-            </span></th>
-          <th>    <span>
+            </span>
+          </th>
+          <th>
+            <span>
               <p>Origine</p>
               <fa icon="fa-solid fa-angle-down" />
-            </span></th>
-          <th>    <span>
+            </span>
+          </th>
+          <th>
+            <span>
               <p>Aperçu</p>
               <fa icon="fa-solid fa-angle-down" />
-            </span></th>
+            </span>
+          </th>
           <th></th>
         </tr>
       </thead>
@@ -133,6 +139,8 @@ export default {
       }
     },
   },
+
+
 }
 </script>
 

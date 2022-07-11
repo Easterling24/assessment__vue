@@ -34,10 +34,11 @@ export default {
   methods: {
     // Getting the data from json file imported above
     getPatientData() {
-      this.data = this.items
+      this.data = this.items[0]
       this.documents = this.items[0].documents
       this.numDocs = this.items[0].documents.length
       this.formatData()
+
     },
 
     // ===================================================================== //
@@ -107,6 +108,8 @@ export default {
           this.matched = ''
         }
       })
+
+      console.log(this.matched)
     },
 
     // ===================================================================== //
